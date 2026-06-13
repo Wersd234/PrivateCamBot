@@ -1,5 +1,6 @@
 opencv-python-headless
 ultralytics
+protobuf==3.20.3
 mediapipe
 paramiko
 face_recognition

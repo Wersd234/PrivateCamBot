@@ -9,6 +9,7 @@ import paramiko
 from datetime import datetime
 from ultralytics import YOLO
 import mediapipe as mp
+from mediapipe.python.solutions import hands as mp_hands_lib
 import face_recognition
 
 # ================= 1. 环境配置区 =================
@@ -122,7 +123,7 @@ def main():
 
     # --- 2. 初始化 AI 模型 ---
     yolo_model = YOLO("yolov8n.pt")
-    mp_hands = mp.solutions.hands.Hands(static_image_mode=False, max_num_hands=1, min_detection_confidence=0.7)
+    mp_hands = mp_hands_lib.Hands(static_image_mode=False, max_num_hands=1, min_detection_confidence=0.7)
 
     stream = VideoCaptureZeroDelay(RTSP_URL)
     time.sleep(2)
