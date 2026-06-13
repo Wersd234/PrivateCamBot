@@ -61,6 +61,14 @@ def wake_on_lan(macaddress):
 def main():
     print(f"🔄 启动 AI-WOL 守护进程... 目标 MAC: {MAC_ADDRESS}", flush=True)
 
+    # ===== 新增透视代码 =====
+    print("====== 🔎 Docker 内部文件侦探 ======", flush=True)
+    print(f"当前工作目录: {os.getcwd()}", flush=True)
+    print(f"目录下的所有文件: {os.listdir('.')}", flush=True)
+    print("====================================", flush=True)
+    # ========================
+
+
     # 学习人脸
     try:
         my_image = face_recognition.load_image_file("me.jpg")
