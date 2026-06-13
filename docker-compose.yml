@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  wol_monitor:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: smart-wol-cam:latest
+    container_name: wol_monitor
+    restart: always
+
+    # 【极其重要！】必须是 host 模式
+    # 如果不加这行，Docker 会把容器放进虚拟内网，WOL 广播魔包根本发不到你的物理局域网里，ROG 绝对开不了机。
+    network_mode: "host"
+
+    # 环境变量映射：这里会让 Docker 自动去读取你填入 Portainer 或 .env 文件里的值
+    environment:
+      - RTSP_URL=${RTSP_URL}
+      - MAC_ADDRESS=${MAC_ADDRESS}
+      - WOL_COOLDOWN=${WOL_COOLDOWN}
+      - TOLERANCE=${TOLERANCE}

@@ -1,0 +1,56 @@
+# ========================
+# Python 环境与缓存
+# ========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ========================
+# 虚拟环境 (Virtual Environments)
+# ========================
+.env/
+.venv/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ========================
+# 环境变量文件 (绝对禁止上传敏感信息！！！)
+# ========================
+.env
+.env.local
+.env.*
+
+# ========================
+# IDE 配置目录 (如果你用 PyCharm 或 VSCode)
+# ========================
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# ========================
+# 操作系统生成文件
+# ========================
+.DS_Store
+Thumbs.db

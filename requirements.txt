@@ -1,0 +1,3 @@
+# 注意：在 Docker 里不需要界面，所以必须用 headless 版本的 opencv，体积更小且不会报错
+opencv-python-headless
+face_recognition
