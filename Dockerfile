@@ -18,4 +18,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY smart_wol.py .
 
 # 设置默认运行命令 (-u 参数保证终端实时打印日志不被缓存)
-CMD ["python", "-u", "main.py"]
+CMD ["python", "-u", "smart_wol.py"]
