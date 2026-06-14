@@ -75,7 +75,7 @@ def main():
 
             if not is_master_auth:
                 ui_status = "Verifying Identity..."
-                if ai_engine.verify_master(small_frame, config.TOLERANCE):
+                if ai_engine.verify_master(frame, config.TOLERANCE):
                     print(f"\n[{datetime.now().strftime('%H:%M:%S')}] 🟢 身份确认：Master！", flush=True)
                     is_master_auth = True
                     if current_time - last_wol_time > config.WOL_COOLDOWN:
