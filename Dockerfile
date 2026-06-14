@@ -1,24 +1,23 @@
 FROM python:3.10-slim
 
 WORKDIR /app
-
-# 1. 禁用安装过程中的弹窗提示，防止容器卡死
 ENV DEBIAN_FRONTEND=noninteractive
 
-# 2. 核心修复：增加 5 次网络重试，并替换为最新的 libgl1 依赖
-RUN apt-get clean && \
+# 替换阿里源与安装 C++ 环境
+RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debian.sources || true && \
+    sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list || true && \
+    apt-get clean && \
     apt-get update -o Acquire::Retries=5 || apt-get update --fix-missing && \
     apt-get install -y --no-install-recommends \
-    cmake \
-    g++ \
-    make \
-    libgl1 \
-    libglib2.0-0 && \
+    cmake g++ make libgl1 libglib2.0-0 && \
     rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# 从 properties 文件夹复制依赖并安装
+COPY properties/requirements.txt ./properties/
+RUN pip install --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple -r properties/requirements.txt
 
+# 复制整个项目高级文件树
 COPY . .
 
-CMD ["python", "-u", "smart_wol.py"]
+# 启动 src 目录下的主程序
+CMD ["python", "-u", "src/main.py"]

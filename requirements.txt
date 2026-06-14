@@ -1,5 +1,0 @@
-opencv-python-headless
-ultralytics
-mediapipe
-paramiko
-face_recognition

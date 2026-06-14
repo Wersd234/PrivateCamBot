@@ -5,15 +5,19 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      network: host          # 👈 【关键新增】让 Docker 在打包编译时，直接使用宿主机的物理网络！
-
+      network: host
+    image: smart-wol-cam:v11
     container_name: rog_ai_guardian
     restart: always
-    network_mode: "host"     # 这是运行时使用的网络
+    network_mode: "host"
     environment:
       - RTSP_URL=${RTSP_URL}
       - ROG_IP=${ROG_IP}
       - MAC_ADDRESS=${MAC_ADDRESS}
       - AWAY_TIME_LIMIT=${AWAY_TIME_LIMIT}
+      - TOLERANCE=${TOLERANCE}
       - PC_USER=${PC_USER}
       - PC_PASS=${PC_PASS}
+      - YS_APP_KEY=${YS_APP_KEY}
+      - YS_APP_SECRET=${YS_APP_SECRET}
+      - YS_DEVICE_SERIAL=${YS_DEVICE_SERIAL}

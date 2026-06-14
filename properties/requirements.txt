@@ -1,0 +1,7 @@
+opencv-python-headless
+ultralytics
+protobuf==3.20.3
+paramiko
+face_recognition
+requests
+python-dotenv
