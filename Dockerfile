@@ -1,9 +1,10 @@
+# 1. 使用最稳定的 Python 3.10
 FROM python:3.10-slim
 
 WORKDIR /app
 ENV DEBIAN_FRONTEND=noninteractive
 
-# 替换阿里源与安装 C++ 环境
+# 2. 换国内源并安装 dlib(人脸识别) 必须的 C++ 环境
 RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debian.sources || true && \
     sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list || true && \
     apt-get clean && \
@@ -12,12 +13,13 @@ RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debia
     cmake g++ make libgl1 libglib2.0-0 && \
     rm -rf /var/lib/apt/lists/*
 
-# 从 properties 文件夹复制依赖并安装
+# 3. 极速安装 Python 依赖库
+# 注意：这里我们明确指向 properties 文件夹
 COPY properties/requirements.txt ./properties/
 RUN pip install --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple -r properties/requirements.txt
 
-# 复制整个项目高级文件树
+# 4. 把你所有的文件夹 (properties, resource, src) 全复制进去
 COPY . .
 
-# 启动 src 目录下的主程序
+# 5. 启动入口
 CMD ["python", "-u", "src/main.py"]
