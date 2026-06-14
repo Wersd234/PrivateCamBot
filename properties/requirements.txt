@@ -5,3 +5,4 @@ paramiko
 face_recognition
 requests
 python-dotenv
+mediapipe
