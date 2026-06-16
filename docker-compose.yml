@@ -6,14 +6,13 @@ services:
       context: .
       dockerfile: Dockerfile
       network: host
-    image: smart-wol-cam:latest  # 永远使用 latest，极致干净！
+
+    # 👇 注意：这里彻底删除了 image: 这一行！
     container_name: rog_ai_guardian
     restart: always
     network_mode: "host"
     environment:
-      # 锁定物理时区，确保 7-23 点免打扰逻辑完美生效
       - TZ=Australia/Melbourne
-
       - RTSP_URL=${RTSP_URL}
       - ROG_IP=${ROG_IP}
       - MAC_ADDRESS=${MAC_ADDRESS}
