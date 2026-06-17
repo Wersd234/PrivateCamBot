@@ -6,10 +6,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 # 【提速黑科技 1】强制开启 CPU 所有核心，疯狂加速编译 dlib！
 ENV CMAKE_BUILD_PARALLEL_LEVEL=8
 
-# 换国内源，并【补齐 libegl1 图形库】，彻底消灭 MediaPipe 的崩溃报错！
-RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debian.sources || true && \
-    sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list || true && \
-    apt-get clean && \
+# 【恢复全球官方源】自动匹配澳洲悉尼/墨尔本极速 CDN 节点！补齐全部图形库！
+RUN apt-get clean && \
     apt-get update -o Acquire::Retries=5 || apt-get update --fix-missing && \
     apt-get install -y --no-install-recommends \
     cmake \
@@ -26,11 +24,11 @@ RUN sed -i 's/deb.debian.org/mirrors.aliyun.com/g' /etc/apt/sources.list.d/debia
 
 COPY properties/requirements.txt ./properties/
 
-# 【提速黑科技 2】提前截胡！强制只下载 150MB 的纯 CPU 版深度学习框架，省去 2.5GB 下载量！
+# 【提速黑科技 2】提前截胡！强制只下载 150MB 的纯 CPU 版深度学习框架
 RUN pip install --no-cache-dir torch torchvision --index-url https://download.pytorch.org/whl/cpu
 
-# 飞速安装剩余依赖
-RUN pip install --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple -r properties/requirements.txt
+# 【恢复全球官方 PyPI 源】在澳洲跑这个，速度直接起飞！
+RUN pip install --no-cache-dir -r properties/requirements.txt
 
 COPY . .
 
